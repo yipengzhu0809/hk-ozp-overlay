@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Google Maps</title><style>html,body,#map{height:100%;width:100%;margin:0}body{background:#dbe5dd}</style></head><body><div id="map"></div><script>
+'use strict';
+// Each locale gets its own SDK document. Keys stay out of the frame URL and storage.
+let started=false;
+addEventListener('message',event=>{
+ if(started||event.origin!==location.origin||event.source!==parent||event.data?.type!=='load-google')return;
+ started=true;const language=event.data.language==='zh-HK'?'zh-HK':'en';document.documentElement.lang=language;
+ const tell=type=>parent.postMessage({type},location.origin);
+ window.gm_authFailure=()=>tell('google-auth-error');window.initPlanningGoogle=()=>tell('google-api-ready');
+ const script=document.createElement('script');const query=new URLSearchParams({key:event.data.key,language,region:'HK',v:'weekly',loading:'async',callback:'initPlanningGoogle'});
+ script.src='https://maps.googleapis.com/maps/api/js?'+query;script.async=true;script.onerror=()=>tell('google-network-error');document.head.append(script);
+});
+</script></body></html>

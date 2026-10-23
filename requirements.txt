@@ -1,0 +1,2 @@
+# Needed only when rebuilding planning data; the hosted site has no Python runtime.
+shapely>=2,<3

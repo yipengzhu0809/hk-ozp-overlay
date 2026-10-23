@@ -1,0 +1,24 @@
+# Local environments and dependencies
+.venv/
+.python/
+venv/
+node_modules/
+__pycache__/
+*.py[cod]
+
+# Data acquisition caches and local verification output
+data-cache/
+qa/
+*.log
+
+# Local settings and secrets
+.env
+.env.*
+!.env.example
+.openai/
+.sites-runtime/
+.DS_Store
+Thumbs.db
+*.tar
+*.tar.gz
+*.zip
