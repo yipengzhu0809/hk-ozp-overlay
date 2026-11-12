@@ -103,6 +103,7 @@ async function connectGoogle(key,closeDialog=false){
  try{const api=await googleApi(key);if(operation!==googleSequence)return;
   const mapElement=googleFrame.contentDocument.getElementById('map');$('google-map').hidden=false;
   gmap=new api.maps.Map(mapElement,{center:{lat:locationNow.lat,lng:locationNow.lng},zoom:zoomNow,mapTypeId:$('labels-visible').checked?'hybrid':'satellite',tilt:0,streetViewControl:true,mapTypeControl:true,fullscreenControl:true,minZoom:9,maxZoom:20,restriction:{latLngBounds:{north:22.8,south:21.9,west:113.5,east:114.8},strictBounds:false}});
+  if(window.addGoogleVideoSites)window.addGoogleVideoSites(api,gmap);
   googleData=new api.maps.Data({map:gmap});googleOverview=new api.maps.Data({map:gmap});
   [googleData,googleOverview].forEach(layer=>layer.addListener('click',e=>{const p={};e.feature.forEachProperty((v,k)=>p[k]=v);select(p,{lat:e.latLng.lat(),lng:e.latLng.lng()})}));
   gmap.addListener('idle',schedule);gmap.addListener('mousemove',e=>coord({lat:e.latLng.lat(),lng:e.latLng.lng()}));
