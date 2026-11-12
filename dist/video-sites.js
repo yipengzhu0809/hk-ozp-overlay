@@ -1,9 +1,9 @@
 'use strict';
 // Video files are loaded only when the visitor plays an open popup.
 const videoSites=[
- {lat:22.3388439,lng:114.2698295,depth:'6',id:'01'},
- {lat:22.3387236,lng:114.2695586,depth:'7',id:'02'},
- {lat:22.3394437,lng:114.2687656,depth:'6.5',id:'03'}
+ {lat:22.3387439,lng:114.2692495,originalLat:22.3388439,originalLng:114.2698295,depth:'6',id:'01'},
+ {lat:22.3385936,lng:114.2694086,originalLat:22.3387236,originalLng:114.2695586,depth:'7',id:'02'},
+ {lat:22.3393337,lng:114.2686456,originalLat:22.3394437,originalLng:114.2687656,depth:'6.5',id:'03'}
 ];
 function videoPopup(site,doc=document){
  const box=doc.createElement('div');box.className='video-popup';
@@ -13,8 +13,9 @@ function videoPopup(site,doc=document){
  const video=doc.createElement('video');video.controls=true;video.preload='none';video.playsInline=true;
  video.poster=new URL(`videos/site-${site.id}.jpg`,document.baseURI).href;
  video.src=new URL(`videos/site-${site.id}.mp4`,document.baseURI).href;
- const coords=doc.createElement('small');coords.textContent=`${site.lat.toFixed(7)}, ${site.lng.toFixed(7)} · WGS84`;
- box.append(heading,info,video,coords);return box;
+ const coords=doc.createElement('small');coords.textContent=(zh?'調整後的地圖位置：':'Adjusted map position: ')+`${site.lat.toFixed(7)}, ${site.lng.toFixed(7)} · WGS84`;
+ const original=doc.createElement('small');original.textContent=(zh?'原始 GPS：':'Original GPS: ')+`${site.originalLat.toFixed(7)}, ${site.originalLng.toFixed(7)}`;
+ box.append(heading,info,video,coords,original);return box;
 }
 const videoIcon=L.divIcon({className:'video-marker',html:'<div class="video-pin"><span>▶</span></div>',iconSize:[34,38],iconAnchor:[15,30],popupAnchor:[0,-29]});
 const videoMarkers=videoSites.map(site=>L.marker([site.lat,site.lng],{icon:videoIcon,title:`Underwater video · ${site.depth} m`,keyboard:true}).bindPopup(()=>videoPopup(site),{maxWidth:310}).addTo(leaf));
