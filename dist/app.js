@@ -8,7 +8,7 @@ let googleKey='',googleSDK,googleSDKLanguage='',googleSDKKey='',googleFrame,goog
 const cache=new Map(),inflight=new Map();
 const leaf=L.map('leaflet-map',{zoomControl:false,preferCanvas:true,minZoom:9,maxZoom:20,maxBounds:[[21.9,113.5],[22.8,114.8]],maxBoundsViscosity:0.5});
 L.control.zoom({position:'topright',zoomInTitle:t('zoomIn'),zoomOutTitle:t('zoomOut')}).addTo(leaf);
-L.control.scale({position:'bottomleft',imperial:false}).addTo(leaf);leaf.setView([22.33906,114.26930],17);
+L.control.scale({position:'bottomleft',imperial:false}).addTo(leaf);leaf.setView([22.33830,114.26930],16);
 const layers={
  imagery:L.tileLayer('https://mapapi.geodata.gov.hk/gs/api/v1.0.0/xyz/imagery/WGS84/{z}/{x}/{y}.png',{maxZoom:20,attribution:t('attributionImagery'),updateWhenIdle:true,keepBuffer:1}),
  street:L.tileLayer('https://mapapi.geodata.gov.hk/gs/api/v1.0.0/xyz/basemap/WGS84/{z}/{x}/{y}.png',{maxZoom:20,attribution:t('attributionStreet'),updateWhenIdle:true,keepBuffer:1})
